@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valyuta Kalkulyatori</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .converter-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px 25px; border-radius: 20px; max-width: 380px; width: 100%; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+        h2 { text-align: center; font-size: 20px; margin-bottom: 20px; color: #38bdf8; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 8px; }
+        input { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.2); color: #fff; font-size: 16px; outline: none; }
+        .quick-btns { display: flex; gap: 10px; margin-bottom: 20px; }
+        .q-btn { flex: 1; padding: 8px; background: rgba(255, 255, 255, 0.1); border: none; color: #fff; border-radius: 8px; cursor: pointer; font-size: 13px; }
+        .result-box { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 15px; }
+        .result-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .val { font-weight: bold; color: #4ade80; }
+    </style>
+</head>
+<body>
+    <div class="converter-card">
+        <h2>💱 Valyuta Konvertori</h2>
+        <div class="input-group">
+            <label for="usdAmount">AQSH Dollari ($):</label>
+            <input type="number" id="usdAmount" placeholder="Masalan: 100" oninput="convertCurrency()">
+        </div>
+        <div class="quick-btns">
+            <button class="q-btn" onclick="setAmount(10)">$10</button>
+            <button class="q-btn" onclick="setAmount(50)">$50</button>
+            <button class="q-btn" onclick="setAmount(100)">$100</button>
+        </div>
+        <div class="result-box">
+            <div class="result-item">
+                <span>O'zbek so'mi (UZS):</span>
+                <span class="val" id="uzsResult">0 UZS</span>
+            </div>
+            <hr style="border: 0.5px solid rgba(255,255,255,0.05); margin: 10px 0;">
+            <div class="result-item">
+                <span>Evro (€):</span>
+                <span class="val" id="eurResult" style="color: #38bdf8;">0 EUR</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        const usdToUzs = 12600;
+        const usdToEur = 0.92;
+        function convertCurrency() {
+            let usd = document.getElementById("usdAmount").value;
+            let uzsSpan = document.getElementById("uzsResult");
+            let eurSpan = document.getElementById("eurResult");
+            if (usd === "" || usd <= 0) { uzsSpan.innerText = "0 UZS"; eurSpan.innerText = "0 EUR"; return; }
+            uzsSpan.innerText = (usd * usdToUzs).toLocaleString() + " UZS";
+            eurSpan.innerText = (usd * usdToEur).toFixed(2) + " EUR";
+        }
+        function setAmount(amount) {
+            document.getElementById("usdAmount").value = amount;
+            convertCurrency();
+        }
+    </script>
+</body>
+</html>
